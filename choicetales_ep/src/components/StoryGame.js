@@ -88,19 +88,22 @@ const StoryGame = () => {
         <h2>{currentScene.text}</h2>
         
         {/* Item Collection */}
-        {currentScene.items && currentScene.items.map(itemId => (
-          <div 
-            key={itemId} 
-            onClick={() => handleCollectItem(itemId)}
-            className="collectible-item"
-          >
-            <img 
-              src={`${process.env.PUBLIC_URL}/images/items/${itemId}.png`} 
-              alt={`Item ${itemId}`} 
-              style={{ width: itemId === 'old_map' ? '340px' : itemId === 'compass' ? '100px' : 'auto', height: itemId === 'old_map' ? '200px' : itemId === 'compass' ? '100px' : 'auto' }} 
-            />
-          </div>
-        ))}
+        {currentScene.items && currentScene.items
+          .filter(itemId => !inventory.includes(itemId)) // Only show items not in inventory
+          .map(itemId => (
+            <div 
+              key={itemId} 
+              onClick={() => handleCollectItem(itemId)}
+              className="collectible-item"
+            >
+              <img 
+                src={`${process.env.PUBLIC_URL}/images/items/${itemId}.png`} 
+                alt={`Item ${itemId}`} 
+                style={{ width: itemId === 'old_map' ? '340px' : itemId === 'compass' ? '100px' : 'auto', height: itemId === 'old_map' ? '200px' : itemId === 'compass' ? '100px' : 'auto' }} 
+              />
+            </div>
+          ))
+        }
 
         {/* Scene Choices */}
         <div className="scene-choices">
