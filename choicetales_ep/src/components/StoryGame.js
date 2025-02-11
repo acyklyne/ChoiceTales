@@ -38,6 +38,16 @@ const StoryGame = () => {
     currentScene.items = currentScene.items.filter(item => item !== itemId);
   };
 
+  const getItemName = (itemId) => {
+    if (itemId === 'old_map') {
+      return 'Old Treasure Map';
+    }
+    if (itemId === 'compass') {
+      return 'Compass';
+    }
+    return itemId;
+  };
+
   return (
     <div 
       className="story-game"
@@ -61,11 +71,11 @@ const StoryGame = () => {
               inventory.map(itemId => (
                 <div key={itemId} className="inventory-item">
                   <img 
-                    src={`choicetales_ep/public/images/items/${itemId}.png`} 
+                    src={`${process.env.PUBLIC_URL}/images/items/${itemId}.png`} 
                     alt={`Item ${itemId}`} 
-                    style={{ width: '50px', height: '50px' }} 
+                    style={{ width: itemId === 'old_map' ? '340px' : itemId === 'compass' ? '100px' : 'auto', height: itemId === 'old_map' ? '200px' : itemId === 'compass' ? '100px' : 'auto' }} 
                   />
-                  <p style={{ fontSize: '14px' }}>{itemId}</p>
+                  <p style={{ fontSize: '14px' }}>{getItemName(itemId)}</p>
                 </div>
               ))
             )}
@@ -85,8 +95,9 @@ const StoryGame = () => {
             className="collectible-item"
           >
             <img 
-              src={`choicetales_ep/public/images/items/${itemId}.png`} 
+              src={`${process.env.PUBLIC_URL}/images/items/${itemId}.png`} 
               alt={`Item ${itemId}`} 
+              style={{ width: itemId === 'old_map' ? '340px' : itemId === 'compass' ? '100px' : 'auto', height: itemId === 'old_map' ? '200px' : itemId === 'compass' ? '100px' : 'auto' }} 
             />
           </div>
         ))}
@@ -106,7 +117,7 @@ const StoryGame = () => {
         {/* Claimed Item Notification */}
         {claimedItem && (
           <div className="item-claim-notification">
-            Item {claimedItem} claimed!
+            {getItemName(claimedItem)} has been claimed!
           </div>
         )}
       </div>

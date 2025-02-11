@@ -1,14 +1,17 @@
 import React from 'react';
-import './App.css';
-import './styles/index.css';
-import StoryGame from './components/StoryGame'; // Import the StoryGame component
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ChoiceTales from './components/ChoiceTales';
+import StoryGame from './components/StoryGame';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <StoryGame /> {/* Render the StoryGame component */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ChoiceTales />} />
+        <Route path="/story" element={<StoryGame />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
